@@ -7,7 +7,7 @@ import io.ktor.client.request.request
 import io.ktor.client.statement.HttpResponse
 
 suspend fun HttpClient.execute(request: ApiRequest): HttpResponse =
-    request(request.path) {
+    request(request.url) {
         method = request.method
         request.headers.forEach { header(it.key, it.value) }
         url {

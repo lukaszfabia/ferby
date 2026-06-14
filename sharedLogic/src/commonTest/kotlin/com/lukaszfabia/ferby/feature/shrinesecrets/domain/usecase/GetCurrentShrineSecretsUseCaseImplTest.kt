@@ -9,6 +9,7 @@ import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.repository.FakeShrineSecretsRepository
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDateTime
+import kotlin.collections.emptySet
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -39,10 +40,10 @@ class GetCurrentShrineSecretsUseCaseImplTest {
     @Test
     fun invoke_withPerks_returnsSuccess() = runTest {
         // Given
-        val entity = Entity(Role.SURVIVOR, "Dwight", "Lead", "", emptySet())
+        val entity = Entity(id ="11", Role.SURVIVOR, "Dwight", "Lead", "foo", emptySet())
         val perks = setOf(
-            Perk("Bond", entity, "See others"),
-            Perk("Prove Thyself", entity, "Work faster")
+            Perk(id = "12", "Bond", entity, "See others", image = "foo"),
+            Perk(id = "13", "Prove Thyself", entity, "Work faster", image = "foo")
         )
         val shrineSecrets = ShrineSecrets(
             perks = perks,
