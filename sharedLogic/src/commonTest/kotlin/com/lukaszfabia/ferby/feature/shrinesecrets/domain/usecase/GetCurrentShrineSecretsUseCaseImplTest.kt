@@ -1,5 +1,6 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase
 
+import com.lukaszfabia.ferby.data.networking.model.ApiError
 import com.lukaszfabia.ferby.data.networking.model.ApiResult
 import com.lukaszfabia.ferby.domain.model.Entity
 import com.lukaszfabia.ferby.domain.model.Perk
@@ -62,7 +63,7 @@ class GetCurrentShrineSecretsUseCaseImplTest {
     @Test
     fun invoke_onError_returnsError() = runTest {
         // Given
-        val expectedResult = ApiResult.Error<ShrineSecrets>("Something went wrong")
+        val expectedResult = ApiResult.Failure(ApiError.NotFound)
         repository.result = expectedResult
 
         // When
