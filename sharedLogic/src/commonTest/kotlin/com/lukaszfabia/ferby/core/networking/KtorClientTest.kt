@@ -44,7 +44,10 @@ class KtorClientTest {
             )
         }
         val client = KtorClient(createClient(engine))
-        val request = ApiRequest(path = "test")
+        val request = ApiRequest(
+            apiUrl = API_URL,
+            path = PATH
+        )
 
         // When
         val result = client.executeRaw(request)
@@ -61,7 +64,10 @@ class KtorClientTest {
             throw RuntimeException("Network error")
         }
         val client = KtorClient(createClient(engine))
-        val request = ApiRequest(path = "test")
+        val request = ApiRequest(
+            apiUrl = API_URL,
+            path = PATH
+        )
 
         // When
         val result = client.executeRaw(request)
@@ -82,7 +88,10 @@ class KtorClientTest {
             )
         }
         val client = KtorClient(createClient(engine))
-        val request = ApiRequest(path = "test")
+        val request = ApiRequest(
+            apiUrl = API_URL,
+            path = PATH
+        )
 
         // When
         val result: ApiResult<TestData> = client.execute(request)
@@ -102,7 +111,10 @@ class KtorClientTest {
             )
         }
         val client = KtorClient(createClient(engine))
-        val request = ApiRequest(path = "test")
+        val request = ApiRequest(
+            apiUrl = API_URL,
+            path = PATH
+        )
 
         // When
         val result: ApiResult<TestData> = client.execute(request)
@@ -123,7 +135,10 @@ class KtorClientTest {
             )
         }
         val client = KtorClient(createClient(engine))
-        val request = ApiRequest(path = "test")
+        val request = ApiRequest(
+            apiUrl = API_URL,
+            path = PATH
+        )
 
         // When
         val result: ApiResult<TestData> = client.execute(request)
@@ -140,7 +155,10 @@ class KtorClientTest {
             throw RuntimeException("Connection failed")
         }
         val client = KtorClient(createClient(engine))
-        val request = ApiRequest(path = "test")
+        val request = ApiRequest(
+            apiUrl = API_URL,
+            path = PATH
+        )
 
         // When
         val result: ApiResult<TestData> = client.execute(request)
@@ -148,5 +166,10 @@ class KtorClientTest {
         // Then
         assertTrue(result is ApiResult.Failure)
         assertEquals(ApiError.Unknown, result.error)
+    }
+
+    private companion object {
+        const val API_URL = "http://fake-api"
+        const val PATH = "test"
     }
 }
