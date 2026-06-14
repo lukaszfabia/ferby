@@ -1,5 +1,6 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase
 
+import com.lukaszfabia.ferby.data.networking.model.ApiError
 import com.lukaszfabia.ferby.data.networking.model.ApiResult
 import com.lukaszfabia.ferby.domain.model.Entity
 import com.lukaszfabia.ferby.domain.model.Perk
@@ -8,6 +9,7 @@ import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.repository.FakeShrineSecretsRepository
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDateTime
+import kotlin.collections.emptySet
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -38,10 +40,10 @@ class GetCurrentShrineSecretsUseCaseImplTest {
     @Test
     fun invoke_withPerks_returnsSuccess() = runTest {
         // Given
-        val entity = Entity(Role.SURVIVOR, "Dwight", "Lead", "", emptySet())
+        val entity = Entity(id ="11", Role.SURVIVOR, "Dwight", "Lead", "foo", emptySet())
         val perks = setOf(
-            Perk("Bond", entity, "See others"),
-            Perk("Prove Thyself", entity, "Work faster")
+            Perk(id = "12", "Bond", entity, "See others", image = "foo"),
+            Perk(id = "13", "Prove Thyself", entity, "Work faster", image = "foo")
         )
         val shrineSecrets = ShrineSecrets(
             perks = perks,
@@ -62,7 +64,7 @@ class GetCurrentShrineSecretsUseCaseImplTest {
     @Test
     fun invoke_onError_returnsError() = runTest {
         // Given
-        val expectedResult = ApiResult.Error<ShrineSecrets>("Something went wrong")
+        val expectedResult = ApiResult.Failure(ApiError.NotFound)
         repository.result = expectedResult
 
         // When
