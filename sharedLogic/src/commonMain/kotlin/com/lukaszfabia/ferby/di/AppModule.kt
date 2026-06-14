@@ -15,21 +15,25 @@ import kotlinx.serialization.json.JsonNamingStrategy
 
 @OptIn(ExperimentalSerializationApi::class)
 object AppModule {
-    val httpClient: ApiClient = KtorClient(
-        client = HttpClient {
-            engine {
-                getEngine()
-            }
-            install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    namingStrategy = JsonNamingStrategy.SnakeCase
-                    isLenient = true
-                })
-            }
-            defaultRequest {
-                contentType(ContentType.Application.Json)
-            }
-        }
-    )
+    val httpClient: ApiClient =
+        KtorClient(
+            client =
+                HttpClient {
+                    engine {
+                        getEngine()
+                    }
+                    install(ContentNegotiation) {
+                        json(
+                            Json {
+                                ignoreUnknownKeys = true
+                                namingStrategy = JsonNamingStrategy.SnakeCase
+                                isLenient = true
+                            },
+                        )
+                    }
+                    defaultRequest {
+                        contentType(ContentType.Application.Json)
+                    }
+                },
+        )
 }

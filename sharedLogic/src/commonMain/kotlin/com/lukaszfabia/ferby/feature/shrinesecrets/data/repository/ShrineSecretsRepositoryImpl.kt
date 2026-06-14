@@ -8,10 +8,10 @@ import com.lukaszfabia.ferby.feature.shrinesecrets.domain.repository.ShrineSecre
 
 /** An implementation of [ShrineSecretsRepository] that fetches shrine secrets data from an API.*/
 class ShrineSecretsRepositoryImpl(
-    private val api: ShrineSecretsApi
-): ShrineSecretsRepository {
+    private val api: ShrineSecretsApi,
+) : ShrineSecretsRepository {
     override suspend fun getCurrentShrineSecrets(): ApiResult<ShrineSecrets> =
-        when(val result = api.getCurrentShrineSecrets()) {
+        when (val result = api.getCurrentShrineSecrets()) {
             is ApiResult.Success -> ApiResult.Success(result.data.toDomain())
             is ApiResult.Failure -> result
         }

@@ -7,7 +7,7 @@ import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShri
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShrineSecretsUseCaseImpl
 
 class ShrineSecretsModule(
-    appModule: AppModule
+    appModule: AppModule,
 ) {
     private val shrineSecretsApiImpl = ShrineSecretsApiImpl(appModule.httpClient)
     private val repositoryImpl = ShrineSecretsRepositoryImpl(shrineSecretsApiImpl)

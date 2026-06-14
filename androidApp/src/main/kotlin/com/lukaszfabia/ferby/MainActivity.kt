@@ -15,19 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lukaszfabia.ferby.data.networking.model.ApiResult
 import com.lukaszfabia.ferby.data.networking.model.Error
 import com.lukaszfabia.ferby.di.AppModule
-import com.lukaszfabia.ferby.domain.model.Entity
-import com.lukaszfabia.ferby.domain.model.Perk
 import com.lukaszfabia.ferby.feature.shrinesecrets.di.ShrineSecretsModule
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShrineSecretsUseCase
@@ -35,7 +30,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,13 +45,14 @@ class MainActivity : ComponentActivity() {
 // TODO: move it into separate dir
 @Composable
 fun Nav() {
-    val viewModel: TestViewModel = viewModel(
-        factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return TestViewModel(ShrineSecretsModule(AppModule).useCase) as T
-            }
-        }
-    )
+    val viewModel: TestViewModel =
+        viewModel(
+            factory =
+                object : ViewModelProvider.Factory {
+                    override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                        TestViewModel(ShrineSecretsModule(AppModule).useCase) as T
+                },
+        )
     val state by viewModel.state.collectAsStateWithLifecycle()
     UnderConstruction(state)
 }
@@ -69,7 +64,7 @@ data class TestState(
 )
 
 class TestViewModel(
-    private val getCurrentShrineSecretsUseCase: GetCurrentShrineSecretsUseCase
+    private val getCurrentShrineSecretsUseCase: GetCurrentShrineSecretsUseCase,
 ) : ViewModel() {
     private val _state = MutableStateFlow(TestState())
     val state = _state.asStateFlow()
@@ -77,12 +72,12 @@ class TestViewModel(
     init {
         viewModelScope.launch {
             _state.update {
-                when(val result = getCurrentShrineSecretsUseCase()) {
+                when (val result = getCurrentShrineSecretsUseCase()) {
                     is ApiResult.Success -> it.copy(shrineSecrets = result.data)
                     is ApiResult.Failure -> it.copy(error = result.error)
                 }
             }
-            _state.update { it.copy(isLoading = false)}
+            _state.update { it.copy(isLoading = false) }
         }
     }
 }
@@ -93,7 +88,7 @@ private fun UnderConstruction(state: TestState) {
         Column(
             modifier = Modifier.fillMaxSize().safeContentPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             if (state.isLoading) {
                 CircularProgressIndicator()

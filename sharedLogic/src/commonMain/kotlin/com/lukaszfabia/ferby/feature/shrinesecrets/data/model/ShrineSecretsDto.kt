@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
 data class ShrineSecretsDto(
     val status: String = "",
     val error: String? = null,
-    val data: ShrineSecretsData
+    val data: ShrineSecretsData,
 )
 
 /**
@@ -29,7 +29,7 @@ data class ShrineSecretsData(
     val start: String,
     val end: String,
     val week: Int,
-    val perks: List<ShrineSecretsPerk>
+    val perks: List<ShrineSecretsPerk>,
 )
 
 /**
@@ -51,5 +51,5 @@ data class ShrineSecretsPerk(
     val name: String,
     val image: String,
     val character: String,
-    val usageTier: String
+    val usageTier: String,
 )

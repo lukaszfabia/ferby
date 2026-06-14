@@ -23,7 +23,9 @@ data class ApiRequest(
 ) {
     /** Build URL from apiUrl and endpoint path. */
     val url: Url
-        get() = URLBuilder(apiUrl).apply {
-            encodedPath = encodedPath.trimEnd('/') + "/" + path.trimStart('/')
-        }.build()
+        get() =
+            URLBuilder(apiUrl)
+                .apply {
+                    encodedPath = encodedPath.trimEnd('/') + "/" + path.trimStart('/')
+                }.build()
 }

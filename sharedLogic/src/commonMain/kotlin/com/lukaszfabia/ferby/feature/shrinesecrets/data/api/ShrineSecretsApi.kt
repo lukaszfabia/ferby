@@ -14,9 +14,8 @@ interface ShrineSecretsApi {
 
 /** An implementation of the [ShrineSecretsApi] interface.*/
 class ShrineSecretsApiImpl(
-    private val client: ApiClient
-): ShrineSecretsApi {
-    override suspend fun getCurrentShrineSecrets(): ApiResult<ShrineSecretsDto> {
-        return client.execute(ShrineSecretsApiRequestProvider.currentPromotion)
-    }
+    private val client: ApiClient,
+) : ShrineSecretsApi {
+    override suspend fun getCurrentShrineSecrets(): ApiResult<ShrineSecretsDto> =
+        client.execute(ShrineSecretsApiRequestProvider.currentPromotion)
 }
