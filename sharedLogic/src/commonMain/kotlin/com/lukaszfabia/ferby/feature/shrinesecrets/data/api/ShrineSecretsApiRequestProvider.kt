@@ -12,8 +12,9 @@ import com.lukaszfabia.ferby.data.networking.model.ApiRequest
 object ShrineSecretsApiRequestProvider {
     // TODO: move literal to config file
     private const val NIGHTLIGHT_URL = "https://api.nightlight.gg/v1"
-    val currentPromotion = ApiRequest(
-        apiUrl = NIGHTLIGHT_URL,
-        path = "/shrine"
-    )
+    val currentPromotion =
+        ApiRequest(
+            apiUrl = NIGHTLIGHT_URL,
+            path = "/shrine",
+        )
 }

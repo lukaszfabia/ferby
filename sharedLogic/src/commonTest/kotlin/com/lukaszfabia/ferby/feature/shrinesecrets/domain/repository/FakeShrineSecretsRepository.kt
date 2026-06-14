@@ -6,7 +6,6 @@ import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 class FakeShrineSecretsRepository : ShrineSecretsRepository {
     var result: ApiResult<ShrineSecrets>? = null
 
-    override suspend fun getCurrentShrineSecrets(): ApiResult<ShrineSecrets> {
-        return result ?: throw IllegalStateException("Result not set in FakeShrineSecretsRepository")
-    }
+    override suspend fun getCurrentShrineSecrets(): ApiResult<ShrineSecrets> =
+        result ?: throw IllegalStateException("Result not set in FakeShrineSecretsRepository")
 }

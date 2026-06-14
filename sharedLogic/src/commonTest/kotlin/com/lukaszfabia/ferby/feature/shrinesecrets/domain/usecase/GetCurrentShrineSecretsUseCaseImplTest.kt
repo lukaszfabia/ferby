@@ -14,63 +14,68 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class GetCurrentShrineSecretsUseCaseImplTest {
-
     private val repository = FakeShrineSecretsRepository()
     private val useCase = GetCurrentShrineSecretsUseCaseImpl(repository)
 
     @Test
-    fun invoke_onSuccess_returnsSuccess() = runTest {
-        // Given
-        val expectedShrineSecrets = ShrineSecrets(
-            perks = emptySet(),
-            start = LocalDateTime(2023, 1, 1, 0, 0),
-            end = LocalDateTime(2023, 1, 8, 0, 0),
-            week = 1
-        )
-        val expectedResult = ApiResult.Success(expectedShrineSecrets)
-        repository.result = expectedResult
+    fun invoke_onSuccess_returnsSuccess() =
+        runTest {
+            // Given
+            val expectedShrineSecrets =
+                ShrineSecrets(
+                    perks = emptySet(),
+                    start = LocalDateTime(2023, 1, 1, 0, 0),
+                    end = LocalDateTime(2023, 1, 8, 0, 0),
+                    week = 1,
+                )
+            val expectedResult = ApiResult.Success(expectedShrineSecrets)
+            repository.result = expectedResult
 
-        // When
-        val result = useCase()
+            // When
+            val result = useCase()
 
-        // Then
-        assertEquals(expectedResult, result)
-    }
-
-    @Test
-    fun invoke_withPerks_returnsSuccess() = runTest {
-        // Given
-        val entity = Entity(id ="11", Role.SURVIVOR, "Dwight", "Lead", "foo", emptySet())
-        val perks = setOf(
-            Perk(id = "12", "Bond", entity, "See others", image = "foo"),
-            Perk(id = "13", "Prove Thyself", entity, "Work faster", image = "foo")
-        )
-        val shrineSecrets = ShrineSecrets(
-            perks = perks,
-            start = LocalDateTime(2023, 1, 1, 0, 0),
-            end = LocalDateTime(2023, 1, 8, 0, 0),
-            week = 1
-        )
-        val expectedResult = ApiResult.Success(shrineSecrets)
-        repository.result = expectedResult
-
-        // When
-        val result = useCase()
-
-        // Then
-        assertEquals(expectedResult, result)
-    }
+            // Then
+            assertEquals(expectedResult, result)
+        }
 
     @Test
-    fun invoke_onError_returnsError() = runTest {
-        // Given
-        val expectedResult = ApiResult.Failure(ApiError.NotFound)
-        repository.result = expectedResult
+    fun invoke_withPerks_returnsSuccess() =
+        runTest {
+            // Given
+            val entity = Entity(id = "11", Role.SURVIVOR, "Dwight", "Lead", "foo", emptySet())
+            val perks =
+                setOf(
+                    Perk(id = "12", "Bond", entity, "See others", image = "foo"),
+                    Perk(id = "13", "Prove Thyself", entity, "Work faster", image = "foo"),
+                )
+            val shrineSecrets =
+                ShrineSecrets(
+                    perks = perks,
+                    start = LocalDateTime(2023, 1, 1, 0, 0),
+                    end = LocalDateTime(2023, 1, 8, 0, 0),
+                    week = 1,
+                )
+            val expectedResult = ApiResult.Success(shrineSecrets)
+            repository.result = expectedResult
 
-        // When
-        val result = useCase()
+            // When
+            val result = useCase()
 
-        // Then
-        assertEquals(expectedResult, result)
-    }
+            // Then
+            assertEquals(expectedResult, result)
+        }
+
+    @Test
+    fun invoke_onError_returnsError() =
+        runTest {
+            // Given
+            val expectedResult = ApiResult.Failure(ApiError.NotFound)
+            repository.result = expectedResult
+
+            // When
+            val result = useCase()
+
+            // Then
+            assertEquals(expectedResult, result)
+        }
 }

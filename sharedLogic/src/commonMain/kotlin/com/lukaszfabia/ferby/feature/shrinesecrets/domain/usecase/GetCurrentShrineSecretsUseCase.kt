@@ -12,7 +12,7 @@ interface GetCurrentShrineSecretsUseCase {
 
 /** An implementation of [GetCurrentShrineSecretsUseCase]. */
 class GetCurrentShrineSecretsUseCaseImpl(
-    private val repository: ShrineSecretsRepository
-): GetCurrentShrineSecretsUseCase {
+    private val repository: ShrineSecretsRepository,
+) : GetCurrentShrineSecretsUseCase {
     override suspend fun invoke(): ApiResult<ShrineSecrets> = repository.getCurrentShrineSecrets()
 }
