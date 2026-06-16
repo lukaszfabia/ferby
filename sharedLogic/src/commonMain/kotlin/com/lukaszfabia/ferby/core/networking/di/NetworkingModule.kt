@@ -15,31 +15,32 @@ import kotlinx.serialization.json.JsonNamingStrategy
 import org.koin.dsl.module
 
 @OptIn(ExperimentalSerializationApi::class)
-val networkingModule = module {
+val networkingModule =
+    module {
 
-    single {
-        HttpClient {
-            engine {
-                getEngine()
-            }
+        single {
+            HttpClient {
+                engine {
+                    getEngine()
+                }
 
-            install(ContentNegotiation) {
-                json(
-                    Json {
-                        ignoreUnknownKeys = true
-                        namingStrategy = JsonNamingStrategy.SnakeCase
-                        isLenient = true
-                    }
-                )
-            }
+                install(ContentNegotiation) {
+                    json(
+                        Json {
+                            ignoreUnknownKeys = true
+                            namingStrategy = JsonNamingStrategy.SnakeCase
+                            isLenient = true
+                        },
+                    )
+                }
 
-            defaultRequest {
-                contentType(ContentType.Application.Json)
+                defaultRequest {
+                    contentType(ContentType.Application.Json)
+                }
             }
         }
-    }
 
-    single<ApiClient> {
-        KtorClient(get())
+        single<ApiClient> {
+            KtorClient(get())
+        }
     }
-}

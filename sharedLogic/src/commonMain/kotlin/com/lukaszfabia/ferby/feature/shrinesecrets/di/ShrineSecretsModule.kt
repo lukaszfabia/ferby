@@ -8,17 +8,18 @@ import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShri
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShrineSecretsUseCaseImpl
 import org.koin.dsl.module
 
-val shrineSecretsModule = module {
+val shrineSecretsModule =
+    module {
 
-    single<ShrineSecretsApi> {
-        ShrineSecretsApiImpl(get())
-    }
+        single<ShrineSecretsApi> {
+            ShrineSecretsApiImpl(get())
+        }
 
-    single<ShrineSecretsRepository> {
-        ShrineSecretsRepositoryImpl(get())
-    }
+        single<ShrineSecretsRepository> {
+            ShrineSecretsRepositoryImpl(get())
+        }
 
-    single<GetCurrentShrineSecretsUseCase> {
-        GetCurrentShrineSecretsUseCaseImpl(get())
+        single<GetCurrentShrineSecretsUseCase> {
+            GetCurrentShrineSecretsUseCaseImpl(get())
+        }
     }
-}
