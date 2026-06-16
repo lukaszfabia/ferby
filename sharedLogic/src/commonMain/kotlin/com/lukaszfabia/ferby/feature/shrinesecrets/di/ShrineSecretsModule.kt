@@ -1,15 +1,24 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.di
 
-import com.lukaszfabia.ferby.di.AppModule
+import com.lukaszfabia.ferby.feature.shrinesecrets.data.api.ShrineSecretsApi
 import com.lukaszfabia.ferby.feature.shrinesecrets.data.api.ShrineSecretsApiImpl
 import com.lukaszfabia.ferby.feature.shrinesecrets.data.repository.ShrineSecretsRepositoryImpl
+import com.lukaszfabia.ferby.feature.shrinesecrets.domain.repository.ShrineSecretsRepository
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShrineSecretsUseCase
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShrineSecretsUseCaseImpl
+import org.koin.dsl.module
 
-class ShrineSecretsModule(
-    appModule: AppModule,
-) {
-    private val shrineSecretsApiImpl = ShrineSecretsApiImpl(appModule.httpClient)
-    private val repositoryImpl = ShrineSecretsRepositoryImpl(shrineSecretsApiImpl)
-    val useCase: GetCurrentShrineSecretsUseCase = GetCurrentShrineSecretsUseCaseImpl(repositoryImpl)
+val shrineSecretsModule = module {
+
+    single<ShrineSecretsApi> {
+        ShrineSecretsApiImpl(get())
+    }
+
+    single<ShrineSecretsRepository> {
+        ShrineSecretsRepositoryImpl(get())
+    }
+
+    single<GetCurrentShrineSecretsUseCase> {
+        GetCurrentShrineSecretsUseCaseImpl(get())
+    }
 }
