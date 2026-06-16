@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Ferby</string>
     <string name="wip">Under Construction</string>
+    <string name="unauthorized">You are not authorized to perform this action.</string>
+    <string name="not_found">Not found</string>
+    <string name="client_error">Something went wrong</string>
+    <string name="server_side_error">Server is not responding, try again later.</string>
+    <string name="serialization_error">Failed to read data</string>
+    <string name="unknown">We do not know what happened</string>
 </resources>

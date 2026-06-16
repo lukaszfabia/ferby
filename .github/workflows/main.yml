@@ -1,30 +1,38 @@
-name: Ferby's pipline
+name: Ferby CI Pipeline
 
 on:
-  push:
-    branches: [main, develop]
   pull_request:
     branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   format:
+    name: ktlint format
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: "11"
           distribution: "temurin"
           cache: gradle
 
-      - name: Run ktlint formatter
+      - name: Run ktlint format
         run: ./gradlew ktlintFormat
 
-      - name: Check if there are changes
-        id: verify-changed-files
+      - name: Check for changes
+        id: changes
         run: |
           if git diff --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -33,16 +41,49 @@ jobs:
           fi
 
       - name: Commit formatted code
-        if: steps.verify-changed-files.outputs.changed == 'true'
+        if: steps.changes.outputs.changed == 'true' && github.event_name == 'push'
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Format code with ktlint"
-          git push
+          git commit -m "chore: format code [skip ci]"
+
+      - name: Push changes
+        if: steps.changes.outputs.changed == 'true' && github.event_name == 'push'
+        run: |
+          git push origin HEAD:${{ github.ref_name }}
+
+  test:
+    name: tests
+    runs-on: ubuntu-latest
+    needs: format
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: "11"
+          distribution: "temurin"
+          cache: gradle
+
+      - name: Run unit tests
+        run: ./gradlew :sharedLogic:allTests
+
+  lint:
+    name: ktlint check (strict)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: "11"
+          distribution: "temurin"
+          cache: gradle
 
       - name: Run ktlint check
         run: ./gradlew ktlintCheck
-
-      - name: Run shared logic unit tests
-        run: ./gradlew :sharedLogic:allTests
