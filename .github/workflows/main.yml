@@ -1,48 +1,44 @@
-name: Ferby's pipline
+name: Ferby CI Pipeline
 
 on:
-  push:
-    branches: [main, develop]
   pull_request:
+    branches: [main, develop]
+  push:
     branches: [main, develop]
 
 jobs:
-  format:
+  lint:
+    name: ktlint check
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: "11"
           distribution: "temurin"
           cache: gradle
 
-      - name: Run ktlint formatter
-        run: ./gradlew ktlintFormat
-
-      - name: Check if there are changes
-        id: verify-changed-files
-        run: |
-          if git diff --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Commit formatted code
-        if: steps.verify-changed-files.outputs.changed == 'true'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git commit -m "Format code with ktlint"
-          git push
-
       - name: Run ktlint check
         run: ./gradlew ktlintCheck
 
-      - name: Run shared logic unit tests
+  test:
+    name: tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: "11"
+          distribution: "temurin"
+          cache: gradle
+
+      - name: Run unit tests
         run: ./gradlew :sharedLogic:allTests
