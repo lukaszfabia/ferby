@@ -4,6 +4,7 @@ import com.lukaszfabia.ferby.data.networking.model.ApiError
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
 
+/** Converts [HttpResponse] to [ApiError]. */
 fun HttpResponse.toError(): ApiError =
     when (status) {
         HttpStatusCode.Unauthorized -> ApiError.Unauthorized
