@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+/** ViewModel for the Shrine Secrets feature. */
 class ShrineSecretsViewModel(
     private val getCurrentShrineSecretsUseCase: GetCurrentShrineSecretsUseCase,
 ) : ViewModel() {

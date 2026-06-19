@@ -6,6 +6,7 @@ import io.ktor.client.request.header
 import io.ktor.client.request.request
 import io.ktor.client.statement.HttpResponse
 
+/** Executes an [ApiRequest] and returns the [HttpResponse]. */
 suspend fun HttpClient.execute(request: ApiRequest): HttpResponse =
     request(request.url) {
         method = request.method

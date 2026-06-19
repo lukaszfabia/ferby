@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/** Initializes the Koin dependency injection framework. */
 private fun initKoin(configuration: KoinAppDeclaration? = null) {
     startKoin {
         includes(configuration)
