@@ -1,4 +1,4 @@
-package com.lukaszfabia.ferby.features.shrinesecrets
+package com.lukaszfabia.ferby.feature.shrinesecrets
 
 import com.lukaszfabia.ferby.data.networking.model.Error
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
