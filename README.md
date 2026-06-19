@@ -1,35 +1,41 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
+![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
+![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white)
 
-* [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+# Ferby
 
-* [/sharedLogic](./sharedLogic/src) is for the code that will be shared between app targets in the project.
-  The most important subfolder is [commonMain](./sharedLogic/src/commonMain/kotlin). If preferred, you
-  can add code to the platform-specific folders here too.
+The **first application that enhances your [Dead by Daylight](https://deadbydaylight.com/) gameplay**, helping you build personalized perk sets.
 
-* [/sharedUI](./sharedUI/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./sharedUI/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./sharedUI/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./sharedUI/src/jvmMain/kotlin)
-    folder is the appropriate location.
+## Features
 
-### Running the apps
+- Shrine Secrets weekly promotion information inside the app with notifications
+- Generating perk sets using a chat-based interface
+- Perk set management
+- List of all perks and characters in the game
+- Marking perks as favorites, which can influence perk set generation
 
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
+## Technical overview
 
-- Android app: `./gradlew :androidApp:assembleDebug`
-- iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+The **Ferby** project uses [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html). We can distinguish several layers:
 
-### Running tests
+- **Data** – data sources, usually including:
+  - API
+  - models (optional)
+  - mappers (optional)
+  - repository implementations
 
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
+- **Domain** – the core layer, defining:
+  - models
+  - repository contracts
+  - use cases
 
-- Android tests: `./gradlew :sharedUI:testAndroidHostTest :sharedLogic:testAndroidHostTest`
-- iOS tests: `./gradlew :sharedLogic:iosSimulatorArm64Test`
+- **Presentation (iOS / Android)** – UI layer implemented separately for iOS and Android:
+  - state
+  - view models
+  - events (optional)
+  - views
 
----
+This directory structure is consistent on both micro and macro levels.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+To simplify usage of use cases and other components, we use [Koin](https://insert-koin.io/).
