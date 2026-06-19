@@ -1,4 +1,4 @@
-package com.lukaszfabia.ferby.features.shrinesecrets
+package com.lukaszfabia.ferby.feature.shrinesecrets
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

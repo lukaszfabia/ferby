@@ -10,8 +10,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.lukaszfabia.ferby.features.shrinesecrets.ShrineSecretsView
-import com.lukaszfabia.ferby.features.shrinesecrets.ShrineSecretsViewModel
+import com.lukaszfabia.ferby.feature.shrinesecrets.ShrineSecretsView
+import com.lukaszfabia.ferby.feature.shrinesecrets.ShrineSecretsViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
