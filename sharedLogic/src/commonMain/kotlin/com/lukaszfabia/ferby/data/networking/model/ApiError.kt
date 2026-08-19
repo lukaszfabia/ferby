@@ -3,7 +3,7 @@ package com.lukaszfabia.ferby.data.networking.model
 /**
  * Represents categorized errors that can occur during network API operations.
  */
-sealed interface ApiError : Error {
+sealed interface ApiError : FerbyError {
     data object Unauthorized : ApiError
 
     data object NotFound : ApiError

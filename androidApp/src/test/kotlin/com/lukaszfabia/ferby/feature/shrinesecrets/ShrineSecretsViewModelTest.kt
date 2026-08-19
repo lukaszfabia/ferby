@@ -1,7 +1,7 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets
 
 import com.lukaszfabia.ferby.data.networking.model.ApiError
-import com.lukaszfabia.ferby.data.networking.model.ApiResult
+import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import com.lukaszfabia.ferby.domain.model.Entity
 import com.lukaszfabia.ferby.domain.model.Perk
 import com.lukaszfabia.ferby.domain.type.Role
@@ -36,7 +36,7 @@ class ShrineSecretsViewModelTest {
     @Test
     fun init_onStart_setsStateToLoading() = runTest {
         // Given
-        val useCase = FakeGetCurrentShrineSecretsUseCase(ApiResult.Failure(ApiError.Unknown))
+        val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(ApiError.Unknown))
 
         // When
         val viewModel = ShrineSecretsViewModel(useCase)
@@ -62,7 +62,7 @@ class ShrineSecretsViewModelTest {
             end = LocalDateTime(2023, 1, 8, 0, 0),
             week = 1
         )
-        val useCase = FakeGetCurrentShrineSecretsUseCase(ApiResult.Success(shrineSecrets))
+        val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Success(shrineSecrets))
 
         // When
         val viewModel = ShrineSecretsViewModel(useCase)
@@ -76,7 +76,7 @@ class ShrineSecretsViewModelTest {
     fun init_onFailure_setsStateToFailure() = runTest {
         // Given
         val error = ApiError.Unknown
-        val useCase = FakeGetCurrentShrineSecretsUseCase(ApiResult.Failure(error))
+        val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(error))
 
         // When
         val viewModel = ShrineSecretsViewModel(useCase)
@@ -88,7 +88,7 @@ class ShrineSecretsViewModelTest {
 }
 
 private class FakeGetCurrentShrineSecretsUseCase(
-    private val result: ApiResult<ShrineSecrets>
+    private val result: FerbyResult<ShrineSecrets>
 ) : GetCurrentShrineSecretsUseCase {
-    override suspend fun invoke(): ApiResult<ShrineSecrets> = result
+    override suspend fun invoke(): FerbyResult<ShrineSecrets> = result
 }
