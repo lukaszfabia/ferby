@@ -1,6 +1,6 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets
 
-import com.lukaszfabia.ferby.data.networking.model.Error
+import com.lukaszfabia.ferby.data.networking.model.FerbyError
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 
 /** Represents the state of the Shrine Secrets feature. */
@@ -11,7 +11,7 @@ sealed interface ShrineSecretsState {
     /** Represents error state of the Shrine Secrets feature.
      * @property error Error that occurred
      * */
-    data class Failure(val error: Error): ShrineSecretsState
+    data class Failure(val error: FerbyError): ShrineSecretsState
 
 
     /** Represents success state of the Shrine Secrets feature.

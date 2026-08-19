@@ -1,7 +1,7 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase
 
 import com.lukaszfabia.ferby.data.networking.model.ApiError
-import com.lukaszfabia.ferby.data.networking.model.ApiResult
+import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import com.lukaszfabia.ferby.domain.model.Entity
 import com.lukaszfabia.ferby.domain.model.Perk
 import com.lukaszfabia.ferby.domain.type.Role
@@ -28,7 +28,7 @@ class GetCurrentShrineSecretsUseCaseImplTest {
                     end = LocalDateTime(2023, 1, 8, 0, 0),
                     week = 1,
                 )
-            val expectedResult = ApiResult.Success(expectedShrineSecrets)
+            val expectedResult = FerbyResult.Success(expectedShrineSecrets)
             repository.result = expectedResult
 
             // When
@@ -55,7 +55,7 @@ class GetCurrentShrineSecretsUseCaseImplTest {
                     end = LocalDateTime(2023, 1, 8, 0, 0),
                     week = 1,
                 )
-            val expectedResult = ApiResult.Success(shrineSecrets)
+            val expectedResult = FerbyResult.Success(shrineSecrets)
             repository.result = expectedResult
 
             // When
@@ -69,7 +69,7 @@ class GetCurrentShrineSecretsUseCaseImplTest {
     fun invoke_onError_returnsError() =
         runTest {
             // Given
-            val expectedResult = ApiResult.Failure(ApiError.NotFound)
+            val expectedResult = FerbyResult.Failure(ApiError.NotFound)
             repository.result = expectedResult
 
             // When

@@ -1,6 +1,6 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.data.repository
 
-import com.lukaszfabia.ferby.data.networking.model.ApiResult
+import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import com.lukaszfabia.ferby.feature.shrinesecrets.data.api.ShrineSecretsApi
 import com.lukaszfabia.ferby.feature.shrinesecrets.data.model.toDomain
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
@@ -10,9 +10,9 @@ import com.lukaszfabia.ferby.feature.shrinesecrets.domain.repository.ShrineSecre
 class ShrineSecretsRepositoryImpl(
     private val api: ShrineSecretsApi,
 ) : ShrineSecretsRepository {
-    override suspend fun getCurrentShrineSecrets(): ApiResult<ShrineSecrets> =
+    override suspend fun getCurrentShrineSecrets(): FerbyResult<ShrineSecrets> =
         when (val result = api.getCurrentShrineSecrets()) {
-            is ApiResult.Success -> ApiResult.Success(result.data.toDomain())
-            is ApiResult.Failure -> result
+            is FerbyResult.Success -> FerbyResult.Success(result.data.toDomain())
+            is FerbyResult.Failure -> result
         }
 }

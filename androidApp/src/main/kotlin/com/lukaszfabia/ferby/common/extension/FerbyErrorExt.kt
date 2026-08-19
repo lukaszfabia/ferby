@@ -3,15 +3,17 @@ package com.lukaszfabia.ferby.common.extension
 import androidx.annotation.StringRes
 import com.lukaszfabia.ferby.R
 import com.lukaszfabia.ferby.data.networking.model.ApiError
-import com.lukaszfabia.ferby.data.networking.model.Error
+import com.lukaszfabia.ferby.data.networking.model.FerbyError
 
+/** Maps [FerbyError] type to a string message. */
 @StringRes
-fun Error.toMessageId(): Int =
+fun FerbyError.toMessageId(): Int =
     when(this) {
         is ApiError -> toMessageId()
         else -> R.string.unknown
     }
 
+/** Maps [ApiError] type to a string message. */
 @StringRes
 fun ApiError.toMessageId(): Int =
     when(this) {
