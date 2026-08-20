@@ -3,19 +3,26 @@ package com.lukaszfabia.ferby.feature.shrinesecrets
 import com.lukaszfabia.ferby.data.networking.model.FerbyError
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 
-/** Represents the state of the Shrine Secrets feature. */
+/**
+ * Represents the state of the shrine secrets feature.
+ */
 sealed interface ShrineSecretsState {
-    /** Represents the initial state of the Shrine Secrets feature - loading. */
+    /**
+     * Indicates that the shrine secrets are currently being loaded.
+     */
     data object Loading: ShrineSecretsState
 
-    /** Represents error state of the Shrine Secrets feature.
-     * @property error Error that occurred
-     * */
+    /**
+     * Indicates that loading the shrine secrets has failed.
+     *
+     * @property error The error that occurred during loading.
+     */
     data class Failure(val error: FerbyError): ShrineSecretsState
 
-
-    /** Represents success state of the Shrine Secrets feature.
-     * @property shrineSecrets ShrineSecrets that was successfully fetched
-     * */
+    /**
+     * Indicates that the shrine secrets have been loaded successfully.
+     *
+     * @property shrineSecrets The loaded shrine secrets.
+     */
     data class Success(val shrineSecrets: ShrineSecrets): ShrineSecretsState
 }
