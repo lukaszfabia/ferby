@@ -19,6 +19,7 @@ ktor = "3.0.1"
 ktlint = "14.2.0"
 material3 = "1.11.0-alpha07"
 material3Version = "1.4.0"
+navigationCompose = "2.9.2"
 okhttp = "5.4.0"
 
 [libraries]
@@ -54,6 +55,7 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
