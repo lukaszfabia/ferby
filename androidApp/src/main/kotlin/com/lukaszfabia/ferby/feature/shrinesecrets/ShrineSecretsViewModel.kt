@@ -28,7 +28,7 @@ class ShrineSecretsViewModel(
     }
 
     fun handleEvent(event: ShrineSecretsEvent) {
-        when(event) {
+        when (event) {
             ShrineSecretsEvent.OnButtonClick -> onButtonClick()
         }
     }
