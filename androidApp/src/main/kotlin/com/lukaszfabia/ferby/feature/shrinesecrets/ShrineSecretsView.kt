@@ -1,4 +1,4 @@
-package com.lukaszfabia.ferby.features.shrinesecrets
+package com.lukaszfabia.ferby.feature.shrinesecrets
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.lukaszfabia.ferby.common.extension.toMessageId
-import com.lukaszfabia.ferby.data.networking.model.Error
+import com.lukaszfabia.ferby.data.networking.model.FerbyError
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 
 @Composable
@@ -29,7 +29,7 @@ private fun ShrineSecretsLoadingView() {
 }
 
 @Composable
-private fun ShrineSecretsFailureView(error: Error) {
+private fun ShrineSecretsFailureView(error: FerbyError) {
     Text(text = stringResource(error.toMessageId()))
 }
 

@@ -4,7 +4,7 @@ import com.lukaszfabia.ferby.core.networking.extension.execute
 import com.lukaszfabia.ferby.core.networking.extension.toError
 import com.lukaszfabia.ferby.data.networking.model.ApiError
 import com.lukaszfabia.ferby.data.networking.model.ApiRequest
-import com.lukaszfabia.ferby.data.networking.model.ApiResult
+import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
@@ -22,26 +22,26 @@ interface ApiClient {
     suspend fun executeRaw(request: ApiRequest): Result<HttpResponse>
 }
 
-/** Makes an api call and returns the result as a [ApiResult] */
-suspend inline fun <reified T> ApiClient.execute(request: ApiRequest): ApiResult<T> =
+/** Makes an api call and returns the result as a [FerbyResult] */
+suspend inline fun <reified T> ApiClient.execute(request: ApiRequest): FerbyResult<T> =
     executeRaw(request).fold(
         onSuccess = { response ->
             try {
                 if (response.status.isSuccess()) {
-                    ApiResult.Success(response.body())
+                    FerbyResult.Success(response.body())
                 } else {
-                    ApiResult.Failure(response.toError())
+                    FerbyResult.Failure(response.toError())
                 }
             } catch (e: Exception) {
                 when (e) {
                     is JsonConvertException,
                     is SerializationException,
-                    -> ApiResult.Failure(ApiError.SerializationError)
-                    else -> ApiResult.Failure(ApiError.Unknown)
+                    -> FerbyResult.Failure(ApiError.SerializationError)
+                    else -> FerbyResult.Failure(ApiError.Unknown)
                 }
             }
         },
-        onFailure = { ApiResult.Failure(ApiError.Unknown) },
+        onFailure = { FerbyResult.Failure(ApiError.Unknown) },
     )
 
 /** An implementation of the [ApiClient] which uses Ktor */

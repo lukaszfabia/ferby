@@ -2,7 +2,7 @@ package com.lukaszfabia.ferby.core.networking
 
 import com.lukaszfabia.ferby.data.networking.model.ApiError
 import com.lukaszfabia.ferby.data.networking.model.ApiRequest
-import com.lukaszfabia.ferby.data.networking.model.ApiResult
+import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -106,10 +106,10 @@ class KtorClientTest {
                 )
 
             // When
-            val result: ApiResult<TestData> = client.execute(request)
+            val result: FerbyResult<TestData> = client.execute(request)
 
             // Then
-            val expected = ApiResult.Success(TestData(1, "Test"))
+            val expected = FerbyResult.Success(TestData(1, "Test"))
             assertEquals(expected, result)
         }
 
@@ -132,10 +132,10 @@ class KtorClientTest {
                 )
 
             // When
-            val result: ApiResult<TestData> = client.execute(request)
+            val result: FerbyResult<TestData> = client.execute(request)
 
             // Then
-            assertTrue(result is ApiResult.Failure)
+            assertTrue(result is FerbyResult.Failure)
             assertEquals(ApiError.NotFound, result.error)
         }
 
@@ -159,10 +159,10 @@ class KtorClientTest {
                 )
 
             // When
-            val result: ApiResult<TestData> = client.execute(request)
+            val result: FerbyResult<TestData> = client.execute(request)
 
             // Then
-            assertTrue(result is ApiResult.Failure)
+            assertTrue(result is FerbyResult.Failure)
             assertEquals(ApiError.SerializationError, result.error)
         }
 
@@ -182,10 +182,10 @@ class KtorClientTest {
                 )
 
             // When
-            val result: ApiResult<TestData> = client.execute(request)
+            val result: FerbyResult<TestData> = client.execute(request)
 
             // Then
-            assertTrue(result is ApiResult.Failure)
+            assertTrue(result is FerbyResult.Failure)
             assertEquals(ApiError.Unknown, result.error)
         }
 

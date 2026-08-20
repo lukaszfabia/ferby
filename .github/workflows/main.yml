@@ -41,4 +41,4 @@ jobs:
           cache: gradle
 
       - name: Run unit tests
-        run: ./gradlew :sharedLogic:allTests
+        run: ./gradlew test

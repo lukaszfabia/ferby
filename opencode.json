@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai",
+  "provider": {
+    "dmr": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Docker Model Runner",
+      "options": {
+        "baseURL": "http://localhost:12434/v1"
+      },
+      "models": {
+        "qwen3-coder": {
+          "name": "docker.io/ai/qwen3-coder:latest",
+          "limit": {
+            "context": 16384,
+            "output": 2048
+          },
+          "options": {
+            "useTools": false
+          }
+        }
+      }
+    }
+  }
+}
+
