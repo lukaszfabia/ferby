@@ -1,31 +1,44 @@
 package com.lukaszfabia.ferby
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.lukaszfabia.ferby.feature.shrinesecrets.ShrineSecretsView
-import com.lukaszfabia.ferby.feature.shrinesecrets.ShrineSecretsViewModel
-import org.koin.compose.viewmodel.koinViewModel
+import androidx.compose.runtime.LaunchedEffect
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.lukaszfabia.ferby.common.navigation.NavigationDelegateImpl
+import com.lukaszfabia.ferby.common.navigation.NavigationEvent
+import com.lukaszfabia.ferby.feature.startup.startupFlow
+import com.lukaszfabia.ferby.feature.shrinesecrets.ShrineSecretsRoute
+import com.lukaszfabia.ferby.feature.shrinesecrets.shrineSecretsFlow
+import org.koin.compose.koinInject
 
 @Composable
 fun MainHost() {
-    val viewModel = koinViewModel<ShrineSecretsViewModel>()
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val navController = rememberNavController()
+    val navigationDelegate = koinInject<NavigationDelegateImpl>()
+
+    LaunchedEffect(Unit) {
+        navigationDelegate.events.collect { event ->
+            when (event) {
+                is NavigationEvent.Navigate ->
+                    navController.navigate(event.route)
+                is NavigationEvent.PopStackBack ->
+                    navController.popBackStack(event.route, event.inclusive)
+                NavigationEvent.NavigateBack ->
+                    navController.popBackStack()
+                NavigationEvent.NavigateHome -> {
+                }
+            }
+        }
+    }
 
     MaterialTheme {
-        Column(
-            modifier = Modifier.fillMaxSize().safeContentPadding(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        NavHost(
+            navController = navController,
+            startDestination = ShrineSecretsRoute
         ) {
-            ShrineSecretsView(state = state)
+            startupFlow()
+            shrineSecretsFlow()
         }
     }
 }

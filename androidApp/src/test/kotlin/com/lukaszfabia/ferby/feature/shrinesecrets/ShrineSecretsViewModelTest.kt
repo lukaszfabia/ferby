@@ -1,5 +1,7 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets
 
+import com.lukaszfabia.ferby.common.navigation.FakeNavigationDelegateImpl
+import com.lukaszfabia.ferby.common.navigation.NavigationDelegate
 import com.lukaszfabia.ferby.data.networking.model.ApiError
 import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import com.lukaszfabia.ferby.domain.model.Entity
@@ -23,6 +25,8 @@ import kotlin.test.assertEquals
 class ShrineSecretsViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
 
+    private val navigationDelegate: NavigationDelegate = FakeNavigationDelegateImpl()
+
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
@@ -39,7 +43,7 @@ class ShrineSecretsViewModelTest {
         val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(ApiError.Unknown))
 
         // When
-        val viewModel = ShrineSecretsViewModel(useCase)
+        val viewModel = ShrineSecretsViewModel(useCase, navigationDelegate)
 
         // Then
         assertEquals(ShrineSecretsState.Loading, viewModel.state.value)
@@ -65,7 +69,7 @@ class ShrineSecretsViewModelTest {
         val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Success(shrineSecrets))
 
         // When
-        val viewModel = ShrineSecretsViewModel(useCase)
+        val viewModel = ShrineSecretsViewModel(useCase, navigationDelegate)
         testDispatcher.scheduler.advanceUntilIdle()
 
         // Then
@@ -79,7 +83,7 @@ class ShrineSecretsViewModelTest {
         val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(error))
 
         // When
-        val viewModel = ShrineSecretsViewModel(useCase)
+        val viewModel = ShrineSecretsViewModel(useCase, navigationDelegate)
         testDispatcher.scheduler.advanceUntilIdle()
 
         // Then

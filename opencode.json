@@ -11,8 +11,8 @@
         "qwen3-coder": {
           "name": "docker.io/ai/qwen3-coder:latest",
           "limit": {
-            "context": 16384,
-            "output": 2048
+            "context": 32768,
+            "output": 4096
           },
           "options": {
             "useTools": false
@@ -22,4 +22,3 @@
     }
   }
 }
-
