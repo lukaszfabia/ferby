@@ -1,7 +1,8 @@
-package com.lukaszfabia.ferby.features.startup
+package com.lukaszfabia.ferby.feature.startup
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.lukaszfabia.ferby.common.navigation.FerbyRoute
 import kotlinx.serialization.Serializable
 
 fun NavGraphBuilder.startupFlow() {
@@ -11,4 +12,4 @@ fun NavGraphBuilder.startupFlow() {
 }
 
 @Serializable
-object StartUpRoute
+object StartUpRoute: FerbyRoute
