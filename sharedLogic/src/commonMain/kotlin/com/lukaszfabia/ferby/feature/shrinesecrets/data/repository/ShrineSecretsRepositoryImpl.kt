@@ -10,9 +10,5 @@ import com.lukaszfabia.ferby.feature.shrinesecrets.domain.repository.ShrineSecre
 class ShrineSecretsRepositoryImpl(
     private val api: ShrineSecretsApi,
 ) : ShrineSecretsRepository {
-    override suspend fun getCurrentShrineSecrets(): FerbyResult<ShrineSecrets> =
-        when (val result = api.getCurrentShrineSecrets()) {
-            is FerbyResult.Success -> FerbyResult.Success(result.data.toDomain())
-            is FerbyResult.Failure -> result
-        }
+    override suspend fun getCurrentShrineSecrets(): FerbyResult<ShrineSecrets> = api.getCurrentShrineSecrets().map { it.toDomain() }
 }

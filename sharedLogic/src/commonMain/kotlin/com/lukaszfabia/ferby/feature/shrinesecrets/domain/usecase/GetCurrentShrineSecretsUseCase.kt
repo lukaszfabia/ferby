@@ -1,5 +1,6 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase
 
+import com.lukaszfabia.ferby.data.networking.model.ApiError
 import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.repository.ShrineSecretsRepository
@@ -14,5 +15,6 @@ interface GetCurrentShrineSecretsUseCase {
 class GetCurrentShrineSecretsUseCaseImpl(
     private val repository: ShrineSecretsRepository,
 ) : GetCurrentShrineSecretsUseCase {
-    override suspend fun invoke(): FerbyResult<ShrineSecrets> = repository.getCurrentShrineSecrets()
+    override suspend fun invoke(): FerbyResult<ShrineSecrets> = FerbyResult.Failure(ApiError.SerializationError)
+//    override suspend fun invoke(): FerbyResult<ShrineSecrets> = repository.getCurrentShrineSecrets()
 }

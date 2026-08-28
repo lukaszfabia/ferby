@@ -3,7 +3,6 @@ package com.lukaszfabia.ferby.feature.shrinesecrets
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lukaszfabia.ferby.common.navigation.NavigationDelegate
-import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShrineSecretsUseCase
 import com.lukaszfabia.ferby.feature.startup.StartUpRoute
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,10 +19,10 @@ class ShrineSecretsViewModel(
 
     init {
         viewModelScope.launch {
-            _state.value = when (val result = getCurrentShrineSecretsUseCase()) {
-                is FerbyResult.Success -> ShrineSecretsState.Success(shrineSecrets = result.data)
-                is FerbyResult.Failure -> ShrineSecretsState.Failure(error = result.error)
-            }
+            _state.value = getCurrentShrineSecretsUseCase()
+                .fold(
+                    onSuccess = { ShrineSecretsState.Success(it) },
+                    onFailure = { ShrineSecretsState.Failure(it) })
         }
     }
 
