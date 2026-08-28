@@ -12,11 +12,11 @@ import SharedLogic
 @MainActor
 final class ShrineSecretsViewModel {
     private let getCurrentShrineSecrets =
-        ShrineSecretsModule.shared.getCurrentShrineSecrets()
-
+    ShrineSecretsModule.shared.getCurrentShrineSecrets()
+    
     var state: ViewState<ShrineSecrets> = .loading
-
-    func loadCurrentShrineSecrets() async {        
+    
+    func loadCurrentShrineSecrets() async {
         self.state = await execute {
             try await getCurrentShrineSecrets.invoke()
         }

@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.lukaszfabia.ferby.common.extension.toMessageId
+import com.lukaszfabia.ferby.common.mapper.toMessageId
 import com.lukaszfabia.ferby.data.networking.model.FerbyError
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 

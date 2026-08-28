@@ -14,7 +14,7 @@ sealed interface ApiError : FerbyError {
 
     data object SerializationError : ApiError
 
-    data object NoDataError: ApiError
+    data object NoDataError : ApiError
 
     data object Unknown : ApiError
 }

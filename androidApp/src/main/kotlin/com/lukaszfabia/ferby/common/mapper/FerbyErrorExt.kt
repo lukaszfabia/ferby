@@ -1,4 +1,4 @@
-package com.lukaszfabia.ferby.common.extension
+package com.lukaszfabia.ferby.common.mapper
 
 import androidx.annotation.StringRes
 import com.lukaszfabia.ferby.R

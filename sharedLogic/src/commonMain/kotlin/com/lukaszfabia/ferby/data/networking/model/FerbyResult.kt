@@ -27,16 +27,16 @@ sealed class FerbyResult<out T> {
         }
 
     /** Gets data from [FerbyResult] when its [Success], returns null when [Failure] */
-    fun <T> FerbyResult<T>.getOrDefault(default: T? = null): T? = when (this) {
-        is Success<T> -> data
-        is Failure -> default
-    }
+    fun <T> FerbyResult<T>.getOrDefault(default: T? = null): T? =
+        when (this) {
+            is Success<T> -> data
+            is Failure -> default
+        }
 
     /** Preprocesses [FerbyResult] using transformation. If result is [Failure] it wraps this error. */
-    fun <R> map(
-        transform: (T) -> R,
-    ): FerbyResult<R> = when (this) {
-        is Success -> Success(transform(data))
-        is Failure -> Failure(error)
-    }
+    fun <R> map(transform: (T) -> R): FerbyResult<R> =
+        when (this) {
+            is Success -> Success(transform(data))
+            is Failure -> Failure(error)
+        }
 }
