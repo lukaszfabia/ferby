@@ -34,6 +34,11 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
+		F352DB3830418E4B00C7915F /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +55,7 @@
 		0D4BE8B2F9A2E075FDCBAD78 = {
 			isa = PBXGroup;
 			children = (
+				F352DB3830418E4B00C7915F /* Resources */,
 				7F8D2B2F59E36B98549E15F3 /* Configuration */,
 				329C6ABA5428D5F70BDA22D6 /* iosApp */,
 				79A6C9714DEAF9BC7151370D /* Products */,
@@ -82,6 +88,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				329C6ABA5428D5F70BDA22D6 /* iosApp */,
+				F352DB3830418E4B00C7915F /* Resources */,
 			);
 			name = iosApp;
 			packageProductDependencies = (
@@ -111,6 +118,7 @@
 			knownRegions = (
 				en,
 				Base,
+				pl,
 			);
 			mainGroup = 0D4BE8B2F9A2E075FDCBAD78;
 			minimizedProjectReferenceProxies = 1;
@@ -226,6 +234,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -295,6 +304,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

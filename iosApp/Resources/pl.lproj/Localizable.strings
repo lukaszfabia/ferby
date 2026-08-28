@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  iosApp
+
+  Created by Lukasz Fabia on 28/08/2026.
+  
+*/
+
+// MARK: General
+
+"app_name" = "Ferby";
+"wip" = "W budowie";
+
+// MARK: Errors
+
+"unauthorized" = "Nie masz uprawnień do wykonania tej operacji.";
+"not_found" = "Nie znaleziono.";
+"client_error" = "Coś poszło nie tak.";
+"server_side_error" = "Serwer nie odpowiada. Spróbuj ponownie później.";
+"serialization_error" = "Nie udało się odczytać danych.";
+"no_data_error" = "Brak danych w wyniku.";
+"unknown" = "Wystąpił nieznany błąd.";
