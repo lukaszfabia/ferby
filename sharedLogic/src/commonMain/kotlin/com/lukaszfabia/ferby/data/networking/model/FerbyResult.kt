@@ -16,14 +16,27 @@ sealed class FerbyResult<out T> {
         val error: FerbyError,
     ) : FerbyResult<Nothing>()
 
-    /** Handles success and error using closures to avoid casting. */
+    /** Performs transformations for each result type. Use to handle result. */
     fun <R> fold(
         onSuccess: (T) -> R,
         onFailure: (FerbyError) -> R,
-    ): R = when (this) {
-        is Success -> onSuccess(data)
-        is Failure -> onFailure(error)
+    ): R =
+        when (this) {
+            is Success -> onSuccess(data)
+            is Failure -> onFailure(error)
+        }
+
+    /** Gets data from [FerbyResult] when its [Success], returns null when [Failure] */
+    fun <T> FerbyResult<T>.getOrDefault(default: T? = null): T? = when (this) {
+        is Success<T> -> data
+        is Failure -> default
     }
 
-    // TODO: add more methods like getOrNull map etc.
+    /** Preprocesses [FerbyResult] using transformation. If result is [Failure] it wraps this error. */
+    fun <R> map(
+        transform: (T) -> R,
+    ): FerbyResult<R> = when (this) {
+        is Success -> Success(transform(data))
+        is Failure -> Failure(error)
+    }
 }
