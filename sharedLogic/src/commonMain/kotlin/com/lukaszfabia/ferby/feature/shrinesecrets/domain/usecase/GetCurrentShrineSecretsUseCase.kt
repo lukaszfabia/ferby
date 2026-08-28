@@ -15,6 +15,5 @@ interface GetCurrentShrineSecretsUseCase {
 class GetCurrentShrineSecretsUseCaseImpl(
     private val repository: ShrineSecretsRepository,
 ) : GetCurrentShrineSecretsUseCase {
-    override suspend fun invoke(): FerbyResult<ShrineSecrets> = FerbyResult.Failure(ApiError.SerializationError)
-//    override suspend fun invoke(): FerbyResult<ShrineSecrets> = repository.getCurrentShrineSecrets()
+    override suspend fun invoke(): FerbyResult<ShrineSecrets> = repository.getCurrentShrineSecrets()
 }
