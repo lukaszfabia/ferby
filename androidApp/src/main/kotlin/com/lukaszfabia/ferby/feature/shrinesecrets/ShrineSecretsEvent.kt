@@ -1,5 +1,7 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets
 
+import com.lukaszfabia.ferby.domain.model.Perk
+
 /**
  * Type alias for a function that handles [ShrineSecretsEvent] instances.
  */
@@ -10,7 +12,7 @@ typealias ShrineSecretsEventHandler = (ShrineSecretsEvent) -> Unit
  */
 sealed interface ShrineSecretsEvent {
     /**
-     * Event triggered when the button is clicked.
+     * Event triggered when the [Perk] is clicked.
      */
-    data object OnButtonClick: ShrineSecretsEvent
+    data class OnPerkClick(val perk: Perk): ShrineSecretsEvent
 }
