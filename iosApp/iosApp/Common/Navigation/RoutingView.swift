@@ -10,6 +10,7 @@ import SwiftUI
 struct RoutingView<Destination: RouterDestinationProtocol, Content: View>: View {
     @State var router: Router<Destination>
     @ViewBuilder var content: (Destination) -> Content
+    
     var body: some View {
         NavigationStack(path: $router.path) {
             content(router.root)

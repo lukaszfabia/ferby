@@ -3,7 +3,8 @@ import SharedLogic
 
 @main
 struct iOSApp: App {
-    @State private var router = Router<ShrineSecretsDestination>.init(root: .root)
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    private let appState = AppState()
     
     init() {
         Koin.shared.setupBackend()
@@ -11,7 +12,7 @@ struct iOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ShrineSecretsProvider(router: router, viewModel: ShrineSecretsViewModel()).content
+            MainView(appState: appState)
         }
     }
 }
