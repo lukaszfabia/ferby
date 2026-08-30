@@ -10,6 +10,9 @@ class FakeNavigationDelegateImpl : NavigationDelegate {
 
     override val events = _events.asSharedFlow()
 
+    private val _navigatedRoutes = mutableListOf<FerbyRoute>()
+    val navigatedRoutes: List<FerbyRoute> = _navigatedRoutes
+
     override suspend fun navigateBack() {
     }
 
@@ -17,6 +20,7 @@ class FakeNavigationDelegateImpl : NavigationDelegate {
     }
 
     override suspend fun navigate(route: FerbyRoute) {
+        _navigatedRoutes.add(route)
     }
 
     override suspend fun popStackBack(

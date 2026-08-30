@@ -2,6 +2,7 @@ package com.lukaszfabia.ferby.feature.shrinesecrets
 
 import com.lukaszfabia.ferby.common.navigation.FakeNavigationDelegateImpl
 import com.lukaszfabia.ferby.common.navigation.NavigationDelegate
+import com.lukaszfabia.ferby.core.cache.MemoryStoreImpl
 import com.lukaszfabia.ferby.data.networking.model.ApiError
 import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import com.lukaszfabia.ferby.domain.model.Entity
@@ -27,6 +28,8 @@ class ShrineSecretsViewModelTest {
 
     private val navigationDelegate: NavigationDelegate = FakeNavigationDelegateImpl()
 
+    private val memoryStore = MemoryStoreImpl<Perk>()
+
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
@@ -43,7 +46,7 @@ class ShrineSecretsViewModelTest {
         val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(ApiError.Unknown))
 
         // When
-        val viewModel = ShrineSecretsViewModel(useCase, navigationDelegate)
+        val viewModel = ShrineSecretsViewModel(useCase, memoryStore, navigationDelegate)
 
         // Then
         assertEquals(ShrineSecretsState.Loading, viewModel.state.value)
@@ -69,7 +72,7 @@ class ShrineSecretsViewModelTest {
         val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Success(shrineSecrets))
 
         // When
-        val viewModel = ShrineSecretsViewModel(useCase, navigationDelegate)
+        val viewModel = ShrineSecretsViewModel(useCase, memoryStore, navigationDelegate)
         testDispatcher.scheduler.advanceUntilIdle()
 
         // Then
@@ -83,11 +86,36 @@ class ShrineSecretsViewModelTest {
         val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(error))
 
         // When
-        val viewModel = ShrineSecretsViewModel(useCase, navigationDelegate)
+        val viewModel = ShrineSecretsViewModel(useCase, memoryStore, navigationDelegate)
         testDispatcher.scheduler.advanceUntilIdle()
 
         // Then
         assertEquals(ShrineSecretsState.Failure(error), viewModel.state.value)
+    }
+
+    @Test
+    fun handleEvent_onPerkClick_savesPerkInMemoryStoreAndNavigates() = runTest {
+        // Given
+        val perk = Perk(
+            id = "1",
+            name = "Perk 1",
+            owner = Entity("1", Role.SURVIVOR, "Owner", "Desc", "img", emptySet()),
+            description = "Description",
+            image = "image"
+        )
+        val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(ApiError.Unknown))
+        val viewModel = ShrineSecretsViewModel(useCase, memoryStore, navigationDelegate)
+
+        // When
+        viewModel.handleEvent(ShrineSecretsEvent.OnPerkClick(perk))
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        // Then
+        assertEquals(perk, memoryStore.get())
+        assertEquals(
+            ShrineSecretsDetailRoute,
+            (navigationDelegate as FakeNavigationDelegateImpl).navigatedRoutes.last()
+        )
     }
 }
 
