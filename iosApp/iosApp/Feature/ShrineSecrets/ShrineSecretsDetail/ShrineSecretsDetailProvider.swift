@@ -8,6 +8,7 @@
 import SharedLogic
 import SwiftUI
 
+@MainActor
 struct ShrineSecretsDetailProvider {
     private let viewModel: ShrineSecretsDetailViewModel
     

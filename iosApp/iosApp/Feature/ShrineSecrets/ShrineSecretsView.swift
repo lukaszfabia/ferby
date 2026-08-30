@@ -46,7 +46,7 @@ private struct RootView: View {
                 Text(FerbyErrorMapper.shared.map(error: error))
             }
         }.task {
-            await viewModel.loadCurrentShrineSecrets()
+            await viewModel.send(action: .load)
         }
     }
 }

@@ -11,6 +11,6 @@ struct ShrineSecretsDetailView: View {
     @State var viewModel: ShrineSecretsDetailViewModel
     
     var body: some View {
-        PerkCard(perk: viewModel.perk)
+        PerkCard(perk: viewModel.state)
     }
 }

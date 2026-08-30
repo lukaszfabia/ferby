@@ -7,10 +7,14 @@
 
 import SharedLogic
 
-final class ShrineSecretsDetailViewModel {
-    let perk: Perk
+final class ShrineSecretsDetailViewModel: ViewModelProtocol {
+    let state: Perk
     
     init(perk: Perk) {
-        self.perk = perk
+        self.state = perk
+    }
+    
+    func send(action: ShrineSecretsDetailAction) async {
+        
     }
 }
