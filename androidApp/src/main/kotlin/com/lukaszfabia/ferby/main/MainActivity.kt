@@ -1,4 +1,4 @@
-package com.lukaszfabia.ferby
+package com.lukaszfabia.ferby.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -27,6 +27,6 @@ class MainActivity : ComponentActivity() {
 private fun initKoin(configuration: KoinAppDeclaration? = null) {
     startKoin {
         includes(configuration)
-        modules(appModule, commonModule, featuresModule)
+        modules(appModule, commonModule, featuresModule, mainModule)
     }
 }
