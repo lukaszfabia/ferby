@@ -1,21 +1,17 @@
-package com.lukaszfabia.ferby
+package com.lukaszfabia.ferby.main
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.lukaszfabia.ferby.common.navigation.NavigationDelegateImpl
+import com.lukaszfabia.ferby.common.navigation.NavigationDelegate
 import com.lukaszfabia.ferby.common.navigation.NavigationEvent
-import com.lukaszfabia.ferby.feature.startup.startupFlow
-import com.lukaszfabia.ferby.feature.shrinesecrets.ShrineSecretsRoute
-import com.lukaszfabia.ferby.feature.shrinesecrets.shrineSecretsFlow
+import com.lukaszfabia.ferby.feature.home.HomeRoute
 import org.koin.compose.koinInject
 
 @Composable
 fun MainHost() {
     val navController = rememberNavController()
-    val navigationDelegate = koinInject<NavigationDelegateImpl>()
+    val navigationDelegate = koinInject<NavigationDelegate>()
 
     LaunchedEffect(Unit) {
         navigationDelegate.events.collect { event ->
@@ -27,18 +23,11 @@ fun MainHost() {
                 NavigationEvent.NavigateBack ->
                     navController.popBackStack()
                 NavigationEvent.NavigateHome -> {
+                    navController.navigate(HomeRoute)
                 }
             }
         }
     }
 
-    MaterialTheme {
-        NavHost(
-            navController = navController,
-            startDestination = ShrineSecretsRoute
-        ) {
-            startupFlow()
-            shrineSecretsFlow()
-        }
-    }
+    MainView(navController)
 }
