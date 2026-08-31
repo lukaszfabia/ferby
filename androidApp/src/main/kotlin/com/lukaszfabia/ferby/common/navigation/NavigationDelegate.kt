@@ -25,7 +25,7 @@ interface NavigationDelegate {
      * Navigates to the specified [route].
      */
     suspend fun navigate(route: FerbyRoute)
-    
+
     /**
      * Pops the navigation stack back to the specified [route].
      *
