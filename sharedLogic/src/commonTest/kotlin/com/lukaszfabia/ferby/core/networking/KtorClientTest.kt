@@ -1,8 +1,9 @@
 package com.lukaszfabia.ferby.core.networking
 
-import com.lukaszfabia.ferby.data.networking.model.ApiError
+import com.lukaszfabia.ferby.core.result.ApiError
+import com.lukaszfabia.ferby.core.result.FerbyError
+import com.lukaszfabia.ferby.core.result.FerbyResult
 import com.lukaszfabia.ferby.data.networking.model.ApiRequest
-import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -163,7 +164,7 @@ class KtorClientTest {
 
             // Then
             assertTrue(result is FerbyResult.Failure)
-            assertEquals(ApiError.SerializationError, result.error)
+            assertEquals(ApiError.Serialization, result.error)
         }
 
     @Test
@@ -186,7 +187,7 @@ class KtorClientTest {
 
             // Then
             assertTrue(result is FerbyResult.Failure)
-            assertEquals(ApiError.Unknown, result.error)
+            assertEquals(FerbyError.Unknown, result.error)
         }
 
     private companion object {

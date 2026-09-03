@@ -1,8 +1,8 @@
 package com.lukaszfabia.ferby.core.networking.di
 
-import com.lukaszfabia.ferby.common.networking.getEngine
 import com.lukaszfabia.ferby.core.networking.ApiClient
 import com.lukaszfabia.ferby.core.networking.KtorClient
+import com.lukaszfabia.ferby.core.networking.getEngine
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest

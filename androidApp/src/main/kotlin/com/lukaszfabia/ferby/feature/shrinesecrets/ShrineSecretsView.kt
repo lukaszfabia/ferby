@@ -12,10 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.lukaszfabia.ferby.common.mapper.toMessageId
-import com.lukaszfabia.ferby.data.networking.model.FerbyError
-import com.lukaszfabia.ferby.domain.model.Perk
+import com.lukaszfabia.ferby.core.result.FerbyError
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Perk
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 
 @Composable

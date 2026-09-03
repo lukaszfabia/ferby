@@ -9,6 +9,11 @@
     <string name="no_data_error">No data in result.</string>
     <string name="unknown">We do not know what happened.</string>
 
+    <string name="missing_token">Authentication has been failed.</string>
+    <string name="configuration">Failed to run this configuration.</string>
+    <string name="cancelled">Action cancelled.</string>
+    <string name="sign_in_failed">Sign in has been failed. Try again.</string>
+
     <!--  Tab bar item titles  -->
     <string name="home">Home</string>
     <string name="profile">Profile</string>

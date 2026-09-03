@@ -3,11 +3,11 @@ package com.lukaszfabia.ferby.feature.shrinesecrets
 import com.lukaszfabia.ferby.common.navigation.FakeNavigationDelegateImpl
 import com.lukaszfabia.ferby.common.navigation.NavigationDelegate
 import com.lukaszfabia.ferby.core.cache.MemoryStoreImpl
-import com.lukaszfabia.ferby.data.networking.model.ApiError
-import com.lukaszfabia.ferby.data.networking.model.FerbyResult
-import com.lukaszfabia.ferby.domain.model.Entity
-import com.lukaszfabia.ferby.domain.model.Perk
-import com.lukaszfabia.ferby.domain.type.Role
+import com.lukaszfabia.ferby.core.result.FerbyError
+import com.lukaszfabia.ferby.core.result.FerbyResult
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Entity
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Perk
+import com.lukaszfabia.ferby.domain.deadbydaylight.type.Role
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShrineSecretsUseCase
 import kotlinx.coroutines.Dispatchers
@@ -43,7 +43,7 @@ class ShrineSecretsViewModelTest {
     @Test
     fun init_onStart_setsStateToLoading() = runTest {
         // Given
-        val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(ApiError.Unknown))
+        val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(FerbyError.Unknown))
 
         // When
         val viewModel = ShrineSecretsViewModel(useCase, memoryStore, navigationDelegate)
@@ -82,7 +82,7 @@ class ShrineSecretsViewModelTest {
     @Test
     fun init_onFailure_setsStateToFailure() = runTest {
         // Given
-        val error = ApiError.Unknown
+        val error = FerbyError.Unknown
         val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(error))
 
         // When
@@ -103,7 +103,7 @@ class ShrineSecretsViewModelTest {
             description = "Description",
             image = "image"
         )
-        val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(ApiError.Unknown))
+        val useCase = FakeGetCurrentShrineSecretsUseCase(FerbyResult.Failure(FerbyError.Unknown))
         val viewModel = ShrineSecretsViewModel(useCase, memoryStore, navigationDelegate)
 
         // When

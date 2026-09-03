@@ -1,6 +1,6 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.domain.model
 
-import com.lukaszfabia.ferby.domain.model.Perk
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Perk
 import kotlinx.datetime.LocalDateTime
 
 /** Represents a shrine's secrets, weekly available perks to buy in the game.

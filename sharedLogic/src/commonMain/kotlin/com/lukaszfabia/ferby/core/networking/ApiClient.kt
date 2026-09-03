@@ -2,9 +2,10 @@ package com.lukaszfabia.ferby.core.networking
 
 import com.lukaszfabia.ferby.core.networking.extension.execute
 import com.lukaszfabia.ferby.core.networking.extension.toError
-import com.lukaszfabia.ferby.data.networking.model.ApiError
+import com.lukaszfabia.ferby.core.result.ApiError
+import com.lukaszfabia.ferby.core.result.FerbyError
+import com.lukaszfabia.ferby.core.result.FerbyResult
 import com.lukaszfabia.ferby.data.networking.model.ApiRequest
-import com.lukaszfabia.ferby.data.networking.model.FerbyResult
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
@@ -36,12 +37,12 @@ suspend inline fun <reified T> ApiClient.execute(request: ApiRequest): FerbyResu
                 when (e) {
                     is JsonConvertException,
                     is SerializationException,
-                    -> FerbyResult.Failure(ApiError.SerializationError)
-                    else -> FerbyResult.Failure(ApiError.Unknown)
+                    -> FerbyResult.Failure(ApiError.Serialization)
+                    else -> FerbyResult.Failure(FerbyError.Unknown)
                 }
             }
         },
-        onFailure = { FerbyResult.Failure(ApiError.Unknown) },
+        onFailure = { FerbyResult.Failure(FerbyError.Unknown) },
     )
 
 /** An implementation of the [ApiClient] which uses Ktor */

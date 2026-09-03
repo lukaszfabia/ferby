@@ -1,6 +1,6 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets
 
-import com.lukaszfabia.ferby.domain.model.Perk
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Perk
 
 /**
  * Type alias for a function that handles [ShrineSecretsEvent] instances.
