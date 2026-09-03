@@ -2,7 +2,7 @@ package com.lukaszfabia.ferby.feature.shrinesecrets.detail
 
 import androidx.lifecycle.ViewModel
 import com.lukaszfabia.ferby.core.cache.MemoryStore
-import com.lukaszfabia.ferby.domain.model.Perk
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Perk
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

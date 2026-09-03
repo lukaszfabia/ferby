@@ -15,7 +15,11 @@ enum TabRouterDestination: RouterDestinationProtocol {
 @Observable
 @MainActor
 final class AppState {
-    private let shrineSecretsRouter = Router<ShrineSecretsDestination>(root: .root)
+    private let shrineSecretsRouter = Router<ShrineSecretsDestination>(
+        root: .root
+    )
+    private let signInRouter = Router<SignInDestination>(root: .root)
+    private let homeRouter = Router<HomeDestination>(root: .root)
     
     @ObservationIgnored
     private(set) lazy var shrineSecretsProvider = {
@@ -26,5 +30,27 @@ final class AppState {
         )
     }()
     
-    var tabRouter: TabRouter<TabRouterDestination> = .init(tabs: [.home, .shrineSecrets], selectedTab: .shrineSecrets)
+    @ObservationIgnored
+    private(set) lazy var signInProvider = {
+        SignInProvider(
+            router: MainActor.assumeIsolated {
+                signInRouter
+            }
+        )
+    }()
+    
+    
+    @ObservationIgnored
+    private(set) lazy var homeProvider = {
+        HomeProvider(
+            router: MainActor.assumeIsolated {
+                homeRouter
+            }
+        )
+    }()
+    
+    var tabRouter: TabRouter<TabRouterDestination> = .init(
+        tabs: [.home, .shrineSecrets],
+        selectedTab: .home
+    )
 }

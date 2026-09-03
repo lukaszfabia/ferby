@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.lukaszfabia.ferby.common.di.commonModule
+import com.lukaszfabia.ferby.common.commonModule
 import com.lukaszfabia.ferby.di.appModule
 import com.lukaszfabia.ferby.feature.featuresModule
 import org.koin.core.context.GlobalContext.startKoin

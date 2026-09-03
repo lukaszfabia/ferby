@@ -40,5 +40,9 @@ jobs:
           distribution: "temurin"
           cache: gradle
 
+      - name: Create google-services.json
+        run: |
+          printf '%s' '${{ secrets.ANDROID_GOOGLE_SERVICES }}' > androidApp/google-services.json
+
       - name: Run unit tests
         run: ./gradlew test

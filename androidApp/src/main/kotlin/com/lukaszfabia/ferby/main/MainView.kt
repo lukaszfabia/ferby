@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -16,6 +17,8 @@ import com.lukaszfabia.ferby.feature.home.homeFlow
 import com.lukaszfabia.ferby.feature.profile.profileFlow
 import com.lukaszfabia.ferby.feature.search.searchFlow
 import com.lukaszfabia.ferby.feature.shrinesecrets.shrineSecretsFlow
+import com.lukaszfabia.ferby.feature.signin.SignInRoute
+import com.lukaszfabia.ferby.feature.signin.signInFlow
 import com.lukaszfabia.ferby.feature.startup.startupFlow
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -30,30 +33,65 @@ fun MainView(navHostController: NavHostController) {
 @Composable
 private fun MainView(navHostController: NavHostController, state: MainState, eventHandler: MainEventHandler) {
     MaterialTheme {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            bottomBar = {
-                TabView(
-                    selectedTab = state.selectedTab,
-                    tabs = state.tabsUi,
-                    onTabItemClick = { eventHandler(MainEvent.OnTabItemClick(it)) }
-                )
+        when(state) {
+            MainState.Loading -> {
+                Text("Loading")
             }
-        ) { scaffoldPadding ->
-            NavHost(
-                navController = navHostController,
-                startDestination = state.selectedTab,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(scaffoldPadding)
-                    .padding(MaterialTheme.spacing.M)
-            ) {
-                homeFlow()
-                profileFlow()
-                searchFlow()
-                startupFlow()
-                shrineSecretsFlow()
+
+            MainState.NotAuthenticated -> {
+                NotAuthenticatedView(navHostController)
             }
+
+            is MainState.Authenticated -> {
+                AuthenticatedView(navHostController, state, eventHandler)
+            }
+        }
+    }
+}
+
+@Composable
+private fun AuthenticatedView(navHostController: NavHostController, state: MainState.Authenticated, eventHandler: MainEventHandler) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            TabView(
+                selectedTab = state.selectedTab,
+                tabs = state.tabsUi,
+                onTabItemClick = { eventHandler(MainEvent.OnTabItemClick(it)) }
+            )
+        }
+    ) { scaffoldPadding ->
+        NavHost(
+            navController = navHostController,
+            startDestination = state.selectedTab,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(scaffoldPadding)
+                .padding(MaterialTheme.spacing.M)
+        ) {
+            homeFlow()
+            profileFlow()
+            searchFlow()
+            startupFlow()
+            shrineSecretsFlow()
+        }
+    }
+}
+
+@Composable
+private fun NotAuthenticatedView(navHostController: NavHostController) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize()
+    ) { scaffoldPadding ->
+        NavHost(
+            navController = navHostController,
+            startDestination = SignInRoute,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(scaffoldPadding)
+                .padding(MaterialTheme.spacing.M)
+        ) {
+            signInFlow()
         }
     }
 }
