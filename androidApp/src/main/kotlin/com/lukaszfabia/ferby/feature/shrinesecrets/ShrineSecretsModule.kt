@@ -1,6 +1,6 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets
 
-import com.lukaszfabia.ferby.domain.model.Perk
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Perk
 import  com.lukaszfabia.ferby.core.cache.MemoryStore
 import  com.lukaszfabia.ferby.core.cache.MemoryStoreImpl
 import com.lukaszfabia.ferby.feature.shrinesecrets.detail.ShrineSecretsDetailViewModel

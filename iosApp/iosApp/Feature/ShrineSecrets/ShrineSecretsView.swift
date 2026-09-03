@@ -43,7 +43,7 @@ private struct RootView: View {
                     }
                 }
             case .failure(let error):
-                Text(FerbyErrorMapper.shared.map(error: error))
+                Text(error.localized())
             }
         }.task {
             await viewModel.send(action: .load)

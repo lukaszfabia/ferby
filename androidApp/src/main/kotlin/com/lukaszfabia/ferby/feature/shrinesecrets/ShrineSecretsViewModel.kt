@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lukaszfabia.ferby.common.navigation.NavigationDelegate
 import com.lukaszfabia.ferby.core.cache.MemoryStore
-import com.lukaszfabia.ferby.domain.model.Perk
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Perk
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase.GetCurrentShrineSecretsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

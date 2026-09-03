@@ -1,8 +1,8 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.data.model
 
-import com.lukaszfabia.ferby.domain.model.Entity
-import com.lukaszfabia.ferby.domain.model.Perk
-import com.lukaszfabia.ferby.domain.type.Role
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Entity
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Perk
+import com.lukaszfabia.ferby.domain.deadbydaylight.type.Role
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 import kotlinx.datetime.LocalDateTime
 

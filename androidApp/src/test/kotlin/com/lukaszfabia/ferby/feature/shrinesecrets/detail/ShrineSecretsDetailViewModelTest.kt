@@ -1,9 +1,9 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.detail
 
 import com.lukaszfabia.ferby.core.cache.MemoryStoreImpl
-import com.lukaszfabia.ferby.domain.model.Entity
-import com.lukaszfabia.ferby.domain.model.Perk
-import com.lukaszfabia.ferby.domain.type.Role
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Entity
+import com.lukaszfabia.ferby.domain.deadbydaylight.model.Perk
+import com.lukaszfabia.ferby.domain.deadbydaylight.type.Role
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

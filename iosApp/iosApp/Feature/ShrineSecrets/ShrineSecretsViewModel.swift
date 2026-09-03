@@ -14,7 +14,7 @@ final class ShrineSecretsViewModel: ViewModelProtocol {
     private let getCurrentShrineSecrets =
         ShrineSecretsModule.shared.getCurrentShrineSecrets()
 
-    var state: ViewState<ShrineSecrets> = .loading
+    var state: ShrineSecretsState = .loading
     
     func send(action: ShrineSecretsAction) async {
         switch action {
@@ -25,9 +25,12 @@ final class ShrineSecretsViewModel: ViewModelProtocol {
 }
 
 extension ShrineSecretsViewModel {
-    func loadCurrentShrineSecrets() async {
-        self.state = await execute {
-            try await getCurrentShrineSecrets.invoke()
-        }
+    private func loadCurrentShrineSecrets() async {
+        let result = mapToFerbyResultState(
+            try? await getCurrentShrineSecrets.invoke()
+        )
+
+        self.state = result.fold(onSuccess: { .success($0) }, onFailure: { .failure($0) })
     }
 }
+

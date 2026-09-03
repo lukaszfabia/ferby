@@ -1,6 +1,6 @@
 package com.lukaszfabia.ferby.feature.shrinesecrets.domain.usecase
 
-import com.lukaszfabia.ferby.data.networking.model.FerbyResult
+import com.lukaszfabia.ferby.core.result.FerbyResult
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.model.ShrineSecrets
 import com.lukaszfabia.ferby.feature.shrinesecrets.domain.repository.ShrineSecretsRepository
 

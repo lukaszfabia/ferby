@@ -2,7 +2,7 @@ package com.lukaszfabia.ferby.feature.shrinesecrets.data.api
 
 import com.lukaszfabia.ferby.core.networking.ApiClient
 import com.lukaszfabia.ferby.core.networking.execute
-import com.lukaszfabia.ferby.data.networking.model.FerbyResult
+import com.lukaszfabia.ferby.core.result.FerbyResult
 import com.lukaszfabia.ferby.feature.shrinesecrets.data.model.ShrineSecretsDto
 
 /**

@@ -4,10 +4,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.lukaszfabia.ferby.common.navigation.TabRoute
 import kotlinx.serialization.Serializable
+import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.homeFlow() {
     composable<HomeRoute> {
-        HomeView()
+        val viewModel = koinViewModel<HomeViewModel>()
+
+        HomeView(eventHandler = viewModel::handleEvent)
     }
 }
 
