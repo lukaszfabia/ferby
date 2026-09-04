@@ -24,11 +24,7 @@ final class MainViewModel: ViewModelProtocol {
 
     private func observeUser() async {
         for await session in observeSession.invoke() {
-            if session != nil {
-                self.state = .authenticated
-            } else {
-                self.state = .notAuthenticated
-            }
+            self.state = session != nil ? .authenticated : .notAuthenticated
         }
     }
 }

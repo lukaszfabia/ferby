@@ -6,8 +6,14 @@
 //
 
 import SharedLogic
+import GoogleSignInSwift
 
 struct SignInState {
     var isLoading: Bool = false
     var error: FerbyError? = nil
+    
+    mutating func onError(error: FerbyError) {
+        self.error = error
+        self.isLoading = false
+    }
 }

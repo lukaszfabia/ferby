@@ -33,5 +33,8 @@ struct MainView: View {
         }.task {
             await viewModel.send(action: .observeUser)
         }
+        .onChange(of: viewModel.state) {
+            FerbyHaptics.tap()
+        }
     }
 }
