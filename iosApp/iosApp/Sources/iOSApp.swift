@@ -8,6 +8,7 @@ struct iOSApp: App {
     var body: some Scene {
         WindowGroup {
             MainView(appState: .init(), viewModel: .init())
+                .preferredColorScheme(.dark)
         }
     }
 }

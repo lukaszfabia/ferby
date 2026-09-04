@@ -5,14 +5,13 @@
 //  Created by Lukasz Fabia on 31/08/2026.
 //
 
-import SwiftUI
 import SharedLogic
-import GoogleSignIn
+import SwiftUI
 
 struct SignInView: View {
     @Environment(Router<SignInDestination>.self) private var router
     @State var viewModel: SignInViewModel
-    
+
     var body: some View {
         RoutingView(router: router) { destination in
             switch destination {
@@ -26,25 +25,23 @@ struct SignInView: View {
 
 private struct RootView: View {
     @Bindable var viewModel: SignInViewModel
-    
+
     var body: some View {
         VStack {
-            if viewModel.state.isLoading {
-                ProgressView()
+            SignWithGoogleButton(isLoading: viewModel.state.isLoading) {
+                FerbyHaptics.tap()
+
+                Task {
+                    await viewModel.send(action: .onSignInClick)
+                }
             }
-            else {
-                Button("Sign in with Google") {
-                    Task {
-                        await viewModel.send(action: .onSignInClick)
-                    }
-                }
-                
-                if let error = viewModel.state.error {
-                    Text(error.localized())
-                }
+
+            if let error = viewModel.state.error {
+                Text(error.localized())
             }
         }
-        .onAppear { viewModel.send(action: .reset) }
+        .onAppear {
+            viewModel.send(action: .reset)
+        }
     }
 }
-

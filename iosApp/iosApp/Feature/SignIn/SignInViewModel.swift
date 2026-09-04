@@ -39,8 +39,7 @@ final class SignInViewModel: ViewModelProtocol {
             await authenticate(with: credential)
         } onFailure: { error in
             guard let _ = error as? GoogleSsoErrorCancelled else {
-                self.state.error = error
-                self.state.isLoading = false
+                self.state.onError(error: error)
                 return
             }
             self.state = .init()
